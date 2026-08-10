@@ -16,7 +16,7 @@ export default function SecondaryButton({ label, icon, onPress }: Props) {
       ]}
       onPress={onPress}
     >
-      <Ionicons name={icon} size={24} color="#1E63B5" />
+      <Ionicons name={icon} size={24} color="#990000" />
       <Text style={styles.label}>{label}</Text>
     </Pressable>
   );
