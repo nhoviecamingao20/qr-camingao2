@@ -1,44 +1,41 @@
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { useRouter } from 'expo-router';
-import { StyleSheet, Text, View } from 'react-native';
-import PrimaryButton from '../../components/PrimaryButton';
-import SecondaryButton from '../../components/SecondaryButton';
+import Ionicons from "@expo/vector-icons/Ionicons";
+import { useRouter } from "expo-router";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 export default function HomeScreen() {
   const router = useRouter();
 
   return (
     <View style={styles.container}>
-      {/* Icon Container */}
-      <View style={styles.iconContainer}>
-        <Ionicons name="school" size={64} color="#1E63B5" />
+      <View style={styles.logoCircle}>
+        <Ionicons name="qr-code-outline" size={40} color="#df4fec" />
       </View>
 
-      {/* Title */}
       <Text style={styles.title}>QR Attendance</Text>
 
-      {/* Subtitle */}
-      <Text style={styles.subtitle}>School Event Attendance</Text>
-
-      {/* Description */}
-      <Text style={styles.description}>
-        Scan QR Codes to record attendance during school activities.
-      </Text>
-
-      {/* Buttons */}
-      <View style={styles.buttonContainer}>
-        <PrimaryButton
-          label="Scan QR Code"
-          icon="qr-code"
-          onPress={() => router.push('/scan')}
-        />
-
-        <SecondaryButton
-          label="Attendance History"
-          icon="time-outline"
-          onPress={() => router.push('/history')}
-        />
+      <View style={styles.content}>
+        <Text style={styles.heading}>School Event Attendance</Text>
+        <Text style={styles.description}>
+          Scan QR Codes to record attendance during school activities.
+        </Text>
       </View>
+
+      <TouchableOpacity
+  style={styles.primaryButton}
+  onPress={() => router.push("/scan")}
+>
+  <Ionicons name="qr-code-outline" size={24} color="white" />
+  <Text style={styles.primaryText}>Scan QR Code</Text>
+</TouchableOpacity>
+
+      
+      <TouchableOpacity
+  style={styles.secondaryButton}
+  onPress={() => router.push("/history")}
+>
+  <Ionicons name="time-outline" size={24} color="#1f2937" />
+  <Text style={styles.secondaryText}>Attendance History</Text>
+</TouchableOpacity>
     </View>
   );
 }
@@ -46,49 +43,84 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#a2798f',
-    paddingHorizontal: 24,
-    paddingTop: 120,
-    alignItems: 'center',
-  },
-
-  iconContainer: {
-    width: 120,
-    height: 120,
-    borderRadius: 60,
-    backgroundColor: '#D6E4F0',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 24,
-  },
-
-  title: {
-    fontSize: 28,
-    fontWeight: '700',
-    color: '#1F2429',
-    textAlign: 'center',
-    marginBottom: 12,
-  },
-
-  subtitle: {
-    fontSize: 18,
-    fontWeight: '600',
-    color: '#1E63B5',
-    textAlign: 'center',
-    marginBottom: 8,
-  },
-
-  description: {
-    fontSize: 15,
-    color: '#6B7280',
-    textAlign: 'center',
-    lineHeight: 22,
-    marginBottom: 40,
+    backgroundColor: "#eabcf0",
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: 20,
   },
 
-  buttonContainer: {
-    width: '100%',
-    gap: 18,
+  logoCircle: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    backgroundColor: "#fdfdfd",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+  },
+
+  title: {
+    fontSize: 32,
+    fontWeight: "bold",
+    color: "#111827",
+    marginBottom: 120,
+  },
+
+  content: {
+    alignItems: "center",
+    marginBottom: 25,
+  },
+
+  heading: {
+    fontSize: 24,
+    fontWeight: "600",
+    color: "#df4fec",
+  },
+
+  description: {
+    marginTop: 8,
+    color: "#df4fec",
+    textAlign: "center",
+    fontSize: 16,
+  },
+
+  primaryButton: {
+    width: "100%",
+    height: 60,
+    backgroundColor: "#df4fec",
+    borderRadius: 18,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 16,
+  },
+
+  primaryText: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "600",
+    marginLeft: 10,
+  },
+
+  secondaryButton: {
+    width: "100%",
+    height: 60,
+    backgroundColor: "white",
+    borderRadius: 18,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+
+    shadowColor: "#000",
+    shadowOpacity: 0.08,
+    shadowRadius: 5,
+    elevation: 2,
+  },
+
+  secondaryText: {
+    color: "#111827",
+    fontSize: 20,
+    fontWeight: "600",
+    marginLeft: 10,
   },
 });
