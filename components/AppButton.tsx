@@ -1,48 +1,35 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import type { ComponentProps } from 'react';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 
-type IconName = ComponentProps<typeof FontAwesome>['name'];
+import { COLORS } from '@/constants/colors';
 
 type Props = {
   title: string;
+  icon: keyof typeof Ionicons.glyphMap;
   theme?: 'primary';
-  icon?: IconName;
-  onPress?: () => void | Promise<void>;
+  onPress: () => void;
 };
 
-export default function AppButton({
-  title,
-  theme,
-  icon,
-  onPress,
-}: Props) {
+export default function AppButton({ title, icon, theme, onPress }: Props) {
   if (theme === 'primary') {
     return (
       <View
         style={[
-          styles.buttonContainer,
-          {
-            borderWidth: 4,
-            borderColor: '#ffd33d',
-            borderRadius: 18,
-          },
+          styles.buttonOuter,
+          { borderWidth: 3, borderColor: COLORS.primary, borderRadius: 18 },
         ]}
       >
         <Pressable
-          style={[styles.button, { backgroundColor: '#fff' }]}
-          onPress={() => onPress?.()}
+          style={[styles.buttonInner, { backgroundColor: COLORS.primary }]}
+          onPress={onPress}
         >
-          {icon && (
-            <FontAwesome
-              name={icon}
-              size={18}
-              color="#25292e"
-              style={styles.buttonIcon}
-            />
-          )}
-
-          <Text style={[styles.buttonLabel, { color: '#25292e' }]}>
+          <Ionicons
+            name={icon}
+            size={22}
+            color={COLORS.textOnPrimary}
+            style={styles.icon}
+          />
+          <Text style={[styles.label, { color: COLORS.textOnPrimary }]}>
             {title}
           </Text>
         </Pressable>
@@ -51,51 +38,39 @@ export default function AppButton({
   }
 
   return (
-    <View style={styles.buttonContainer}>
-      <Pressable
-        style={styles.button}
-        onPress={() => onPress?.()}
-      >
-        {icon && (
-          <FontAwesome
-            name={icon}
-            size={18}
-            color="#fff"
-            style={styles.buttonIcon}
-          />
-        )}
-
-        <Text style={styles.buttonLabel}>{title}</Text>
+    <View style={styles.buttonOuter}>
+      <Pressable style={styles.buttonInner} onPress={onPress}>
+        <Ionicons
+          name={icon}
+          size={22}
+          color={COLORS.textSecondary}
+          style={styles.icon}
+        />
+        <Text style={styles.label}>{title}</Text>
       </Pressable>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    width: 320,
-    height: 68,
-    marginHorizontal: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 3,
-  },
-
-  button: {
-    borderRadius: 10,
+  buttonOuter: {
     width: '100%',
-    height: '100%',
+    marginBottom: 14,
+  },
+  buttonInner: {
+    borderRadius: 14,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
+    backgroundColor: COLORS.card,
+    shadowColor: COLORS.shadow,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 3,
   },
-
-  buttonIcon: {
-    paddingRight: 8,
-  },
-
-  buttonLabel: {
-    color: '#fff',
-    fontSize: 16,
-  },
+  icon: { paddingRight: 10 },
+  label: { fontSize: 17, fontWeight: '600', color: COLORS.textPrimary },
 });
